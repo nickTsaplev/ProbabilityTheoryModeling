@@ -3,13 +3,12 @@
 namespace ptm {
 
 void MarkovChain::Train(const std::vector<State>& sequence) {
-
   for (size_t i = 0; i < sequence.size(); ++i) {
     if (!state_to_index_.contains(sequence[i])) {
       state_to_index_[sequence[i]] = index_to_state_.size();
       index_to_state_.push_back(sequence[i]);
 
-      for (auto vec: counts_)
+      for (auto& vec: counts_)
         vec.push_back(0);
       counts_.push_back(std::vector<size_t>(index_to_state_.size(), 0));
       row_sums_.push_back(0);
