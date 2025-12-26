@@ -61,5 +61,3 @@ TEST(SigmaAlgebraTest, EventOperations) {
   EXPECT_FALSE(E3.Contains(b));
   EXPECT_FALSE(E3.Contains(c));
 }
-
-// Add your tests...

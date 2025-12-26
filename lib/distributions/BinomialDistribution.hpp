@@ -25,7 +25,7 @@ private:
 
   double BernoulliFormula(std::uint32_t k) const;
   double PoissonFormula(std::uint32_t k) const;
-  double  MoivreLaplaceFormula(std::uint32_t k) const;
+  double MoivreLaplaceFormula(std::uint32_t k) const;
 };
 
 } // namespace ptm
