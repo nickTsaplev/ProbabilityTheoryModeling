@@ -2,33 +2,32 @@
 
 namespace ptm {
 
-ExponentialDistribution::ExponentialDistribution(double lambda)
-    : lambda_(lambda)
-{}
+ExponentialDistribution::ExponentialDistribution(double lambda) : lambda_(lambda) {
+}
 
 double ExponentialDistribution::Pdf(double x) const {
-    if (x < 0)
-        return 0;
+  if (x < 0)
+    return 0;
 
-    return lambda_ * std::exp(-lambda_ * x);
+  return lambda_ * std::exp(-lambda_ * x);
 }
 
 double ExponentialDistribution::Cdf(double x) const {
-    return 1 - std::exp(-lambda_ * x);
+  return 1 - std::exp(-lambda_ * x);
 }
 
 double ExponentialDistribution::Sample(std::mt19937& rng) const {
-    std::exponential_distribution distribution(lambda_);
+  std::exponential_distribution distribution(lambda_);
 
-    return distribution(rng);
+  return distribution(rng);
 }
 
 double ExponentialDistribution::TheoreticalMean() const {
-    return 1 / lambda_;
+  return 1 / lambda_;
 }
 
 double ExponentialDistribution::TheoreticalVariance() const {
-    return 1 / std::pow(lambda_, 2);
+  return 1 / std::pow(lambda_, 2);
 }
 
 } // namespace ptm
