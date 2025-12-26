@@ -4,16 +4,17 @@
 
 namespace ptm {
 
-MarkovTextModel::MarkovTextModel(TokenLevel level) {
+MarkovTextModel::MarkovTextModel(TokenLevel level) : level_(level) {
   chain_ = MarkovChain();
-  level_ = level;
 }
 
 void MarkovTextModel::TrainFromText(const std::string& text) {
   chain_.Train(Tokenize(text));
 }
 
-std::string MarkovTextModel::GenerateText(std::size_t num_tokens, std::mt19937& rng, const std::string& start_token) const {
+std::string MarkovTextModel::GenerateText(std::size_t num_tokens,
+                                          std::mt19937& rng,
+                                          const std::string& start_token) const {
   std::string start = start_token;
   if (!chain_.HasState(start))
     start = chain_.States()[0];
@@ -36,14 +37,13 @@ std::vector<std::string> MarkovTextModel::Tokenize(const std::string& text) cons
     return ans;
   }
 
-  if(level_ == TokenLevel::Character) {
+  if (level_ == TokenLevel::Character) {
     std::vector<std::string> ans(text.size());
     for (int i = 0; i < text.size(); ++i)
       ans[i] = std::string(1, text[i]);
     return ans;
   }
 }
-
 
 std::string MarkovTextModel::Detokenize(const std::vector<std::string>& tokens) const {
   if (level_ == TokenLevel::Word) {
@@ -65,4 +65,4 @@ std::string MarkovTextModel::Detokenize(const std::vector<std::string>& tokens) 
   }
 }
 
-}
+} // namespace ptm

@@ -1,6 +1,7 @@
 #ifndef PTM_MARKOVCHAIN_HPP_
 #define PTM_MARKOVCHAIN_HPP_
 
+#include <map>
 #include <optional>
 #include <random>
 #include <string>
@@ -42,11 +43,11 @@ private:
   std::unordered_map<State, size_t> state_to_index_;
   std::vector<State> index_to_state_;
 
-  // counts_[i][j] = c_ij, row_sums_[i] = sum_j c_ij
-  std::vector<std::vector<size_t>> counts_;
+  // counts_[i, j] = c_ij, row_sums_[i] = sum_j c_ij
+  std::map<std::pair<size_t, size_t>, size_t> counts_;
   std::vector<size_t> row_sums_;
 
-  size_t ensureState(const State& s);
+  size_t counts(size_t from, size_t to) const;
 };
 
 } // namespace ptm
