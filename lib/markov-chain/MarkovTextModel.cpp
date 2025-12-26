@@ -58,8 +58,8 @@ std::string MarkovTextModel::Detokenize(const std::vector<std::string>& tokens) 
 
   if (level_ == TokenLevel::Character) {
     std::string ans;
-    for (int i = 0; i < tokens.size(); ++i) {
-      ans += tokens[i];
+    for (const auto& token: tokens) {
+      ans += token;
     }
     return ans;
   }

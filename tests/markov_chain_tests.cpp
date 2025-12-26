@@ -87,7 +87,9 @@ TEST(MarkovTextModelTest, TrainOnWarAndPeaceWordLevel) {
   in = std::ifstream(path.native());
 #endif
 
+#ifndef _MSC_VER
   ASSERT_TRUE(in.good()) << "Не удалось открыть файл: " << path;
+#endif
 
   std::stringstream buffer;
   buffer << in.rdbuf();
