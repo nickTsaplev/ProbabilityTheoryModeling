@@ -82,7 +82,7 @@ TEST(MarkovTextModelTest, TrainOnWarAndPeaceWordLevel) {
   path.append("war_and_peace.txt");
 
   std::ifstream in(path);
-  ASSERT_TRUE(in.good()) << "Не удалось открыть файл ../../tests/war_and_peace.txt";
+  ASSERT_TRUE(in.good()) << "Не удалось открыть файл: " << path;
 
   std::stringstream buffer;
   buffer << in.rdbuf();
