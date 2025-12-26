@@ -74,7 +74,14 @@ TEST(MarkovTextModelTest, CharacterLevelGeneration) {
 TEST(MarkovTextModelTest, TrainOnWarAndPeaceWordLevel) {
   using namespace ptm;
 
-  std::ifstream in(std::filesystem::path("../../tests/war_and_peace.txt"));
+  // ../../tests/war_and_peace.txt
+  auto path = std::filesystem::current_path();
+  path = path.parent_path();
+  path = path.parent_path();
+  path.append("tests");
+  path.append("war_and_peace.txt");
+
+  std::ifstream in(path);
   ASSERT_TRUE(in.good()) << "Не удалось открыть файл ../../tests/war_and_peace.txt";
 
   std::stringstream buffer;
