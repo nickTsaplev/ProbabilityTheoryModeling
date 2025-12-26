@@ -77,7 +77,11 @@ TEST(MarkovTextModelTest, TrainOnWarAndPeaceWordLevel) {
   // ../../tests/war_and_peace.txt
   auto path = std::filesystem::current_path();
   path = path.parent_path();
+
+#ifndef _MSC_VER
   path = path.parent_path();
+#endif
+
   path.append("tests");
   path.append("war_and_peace.txt");
 
@@ -87,9 +91,7 @@ TEST(MarkovTextModelTest, TrainOnWarAndPeaceWordLevel) {
   in = std::ifstream(path.native());
 #endif
 
-#ifndef _MSC_VER
-  ASSERT_TRUE(in.good()) << "Не удалось открыть файл: " << path;
-#endif
+  ASSERT_TRUE(in.good()) << "Не удалось открыть файл: " << path.native();
 
   std::stringstream buffer;
   buffer << in.rdbuf();
