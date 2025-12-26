@@ -78,7 +78,7 @@ SigmaAlgebra SigmaAlgebra::Generate(const OutcomeSpace& omega, const std::vector
   events.push_back(Event::Empty(size));
   events.push_back(Event::Full(size));
 
-  for (const auto & generator : generators) {
+  for (const auto& generator : generators) {
     if (std::ranges::find(events.begin(), events.end(), generator) == events.end()) {
       events.push_back(generator);
     }
