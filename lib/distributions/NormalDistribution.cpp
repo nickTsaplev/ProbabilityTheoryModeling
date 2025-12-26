@@ -12,7 +12,7 @@ double NormalDistribution::Pdf(double x) const {
 }
 
 double NormalDistribution::Cdf(double x) const {
-  return 0.5 * (1 + std::erf((x - mean_) / stddev_ / std::sqrt(2)));
+  return kNormalDistributionFactor * (1 + std::erf((x - mean_) / stddev_ / std::numbers::sqrt2));
 }
 
 double NormalDistribution::Sample(std::mt19937& rng) const {

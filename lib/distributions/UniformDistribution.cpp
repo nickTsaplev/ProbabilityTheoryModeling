@@ -32,7 +32,7 @@ double UniformDistribution::TheoreticalMean() const {
 }
 
 double UniformDistribution::TheoreticalVariance() const {
-  return std::pow(b_ - a_, 2) / 12;
+  return std::pow(b_ - a_, 2) / kUniformVarianceConstant;
 }
 
 } // namespace ptm
