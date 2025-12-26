@@ -53,7 +53,7 @@ std::optional<MarkovChain::State> MarkovChain::SampleNext(const State& current, 
   if (distribution.empty())
     return {};
 
-  for (auto x : distribution) {
+  for (const auto& x : distribution) {
     r -= x.second;
     if (r <= 0)
       return {x.first};

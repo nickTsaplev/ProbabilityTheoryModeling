@@ -4,9 +4,8 @@
 
 namespace ptm {
 
-MarkovTextModel::MarkovTextModel(TokenLevel level) {
+MarkovTextModel::MarkovTextModel(TokenLevel level) : level_(level) {
   chain_ = MarkovChain();
-  level_ = level;
 }
 
 void MarkovTextModel::TrainFromText(const std::string& text) {

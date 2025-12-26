@@ -82,6 +82,11 @@ TEST(MarkovTextModelTest, TrainOnWarAndPeaceWordLevel) {
   path.append("war_and_peace.txt");
 
   std::ifstream in(path);
+
+#ifdef _MSC_VER
+  in = std::ifstream(path.native());
+#endif
+
   ASSERT_TRUE(in.good()) << "Не удалось открыть файл: " << path;
 
   std::stringstream buffer;
