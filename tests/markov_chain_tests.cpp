@@ -1,5 +1,7 @@
 #include <algorithm>
 #include <fstream>
+#include <filesystem>
+
 #include <gtest/gtest.h>
 
 #include "lib/markov-chain/MarkovChain.hpp"
@@ -72,7 +74,7 @@ TEST(MarkovTextModelTest, CharacterLevelGeneration) {
 TEST(MarkovTextModelTest, TrainOnWarAndPeaceWordLevel) {
   using namespace ptm;
 
-  std::ifstream in("../../tests/war_and_peace.txt");
+  std::ifstream in(std::filesystem::path("../../tests/war_and_peace.txt"));
   ASSERT_TRUE(in.good()) << "Не удалось открыть файл ../../tests/war_and_peace.txt";
 
   std::stringstream buffer;
