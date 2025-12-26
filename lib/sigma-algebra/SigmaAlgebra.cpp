@@ -1,5 +1,6 @@
 #include "SigmaAlgebra.hpp"
 
+#include <algorithm>
 #include <stdexcept>
 
 namespace ptm {
