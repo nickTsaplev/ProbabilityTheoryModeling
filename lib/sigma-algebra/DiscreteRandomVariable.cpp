@@ -10,7 +10,7 @@ DiscreteRandomVariable::DiscreteRandomVariable(const OutcomeSpace& omega,
   if (values_.size() != omega_.GetSize())
     throw std::invalid_argument("Number of values must match number of outcomes");
 
-  if (!P_.IsValid(1e-10))
+  if (!P_.IsValid(kEpsilon))
     throw std::invalid_argument("Probability must be valid with sum = 1");
 }
 

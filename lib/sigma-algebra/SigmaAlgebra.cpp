@@ -77,9 +77,9 @@ SigmaAlgebra SigmaAlgebra::Generate(const OutcomeSpace& omega, const std::vector
   events.push_back(Event::Empty(size));
   events.push_back(Event::Full(size));
 
-  for (size_t i = 0; i < generators.size(); ++i) {
-    if (std::find(events.begin(), events.end(), generators[i]) == events.end()) {
-      events.push_back(generators[i]);
+  for (const auto & generator : generators) {
+    if (std::ranges::find(events.begin(), events.end(), generator) == events.end()) {
+      events.push_back(generator);
     }
   }
 
@@ -90,14 +90,14 @@ SigmaAlgebra SigmaAlgebra::Generate(const OutcomeSpace& omega, const std::vector
 
     for (size_t i = 0; i < start_size; ++i) {
       Event complement = Event::Complement(events[i]);
-      if (std::find(events.begin(), events.end(), complement) == events.end()) {
+      if (std::ranges::find(events.begin(), events.end(), complement) == events.end()) {
         events.push_back(complement);
         run = true;
       }
 
       for (size_t j = 0; j < start_size; ++j) {
         Event event_union = Event::Unite(events[i], events[j]);
-        if (std::find(events.begin(), events.end(), event_union) == events.end()) {
+        if (std::ranges::find(events.begin(), events.end(), event_union) == events.end()) {
           events.push_back(event_union);
           run = true;
         }
@@ -105,6 +105,6 @@ SigmaAlgebra SigmaAlgebra::Generate(const OutcomeSpace& omega, const std::vector
     }
   }
 
-  return SigmaAlgebra(omega, std::move(events));
+  return {omega, std::move(events)};
 }
 } // namespace ptm
