@@ -61,3 +61,56 @@ TEST(SigmaAlgebraTest, EventOperations) {
   EXPECT_FALSE(E3.Contains(b));
   EXPECT_FALSE(E3.Contains(c));
 }
+
+TEST(SigmaAlgebraTest, BasicSigmaAlgebra) {
+  using namespace ptm;
+
+  OutcomeSpace omega;
+  auto w0 = omega.AddOutcome("1");
+  auto w1 = omega.AddOutcome("2");
+
+  std::vector<bool> empty_mask(omega.GetSize(), false);
+  std::vector<bool> full_mask(omega.GetSize(), true);
+
+  Event empty_event(empty_mask);
+  Event full_event(full_mask);
+
+  std::vector<Event> events = {empty_event, full_event};
+  SigmaAlgebra sigma(omega, std::move(events));
+
+  EXPECT_TRUE(sigma.IsSigmaAlgebra());
+  EXPECT_EQ(sigma.GetOutcomeSpace().GetSize(), 2);
+  EXPECT_EQ(sigma.GetEvents().size(), 2);
+}
+
+TEST(SigmaAlgebraTest, GeneratedSigmaAlgebra) {
+  using namespace ptm;
+
+  OutcomeSpace omega;
+  auto w0 = omega.AddOutcome("1");
+  auto w1 = omega.AddOutcome("2");
+  auto w2 = omega.AddOutcome("3");
+
+  std::vector<bool> generatorA(omega.GetSize(), false);
+  generatorA[w0] = true;
+  generatorA[w1] = true;
+  Event A(generatorA);
+
+  std::vector<Event> generators = {A};
+  SigmaAlgebra sigma = SigmaAlgebra::Generate(omega, generators);
+
+  EXPECT_TRUE(sigma.IsSigmaAlgebra());
+  EXPECT_EQ(sigma.GetEvents().size(), 4);
+
+  Event empty = Event::Empty(omega.GetSize());
+  Event full = Event::Full(omega.GetSize());
+  Event complement_A = Event::Complement(A);
+
+  const auto& events = sigma.GetEvents();
+  EXPECT_TRUE(std::ranges::find(events, empty) != events.end());
+  EXPECT_TRUE(std::ranges::find(events, full) != events.end());
+  EXPECT_TRUE(std::ranges::find(events, A) != events.end());
+  EXPECT_TRUE(std::ranges::find(events, complement_A) != events.end());
+}
+
+// Add your tests...

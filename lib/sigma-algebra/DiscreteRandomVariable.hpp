@@ -9,6 +9,8 @@
 
 namespace ptm {
 
+const double kEpsilon = 1e-10;
+
 class DiscreteRandomVariable {
 public:
   DiscreteRandomVariable(const OutcomeSpace& omega, const ProbabilityMeasure& P, std::vector<double> values);
