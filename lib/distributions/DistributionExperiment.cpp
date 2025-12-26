@@ -6,7 +6,7 @@
 namespace ptm {
 
 DistributionExperiment::DistributionExperiment(std::shared_ptr<Distribution> dist, size_t sample_size) :
-    dist_(dist), sample_size_(sample_size) {
+    dist_(std::move(dist)), sample_size_(sample_size) {
 }
 
 ExperimentStats DistributionExperiment::Run(std::mt19937& rng) {
@@ -18,13 +18,13 @@ ExperimentStats DistributionExperiment::Run(std::mt19937& rng) {
 
   ExperimentStats result;
 
-  result.empirical_mean = std::accumulate(values.begin(), values.end(), 0.0) / sample_size_;
+  result.empirical_mean = std::accumulate(values.begin(), values.end(), 0.0) / static_cast<double>(sample_size_);
 
   for (double value : values) {
     result.empirical_variance += std::pow(result.empirical_mean - value, 2);
   }
 
-  result.empirical_variance /= sample_size_;
+  result.empirical_variance /= static_cast<double>(sample_size_);
   result.mean_error = result.empirical_mean - dist_->TheoreticalMean();
   result.variance_error = result.empirical_variance - dist_->TheoreticalVariance();
 
@@ -50,7 +50,7 @@ std::vector<double> DistributionExperiment::EmpiricalCdf(const std::vector<doubl
       ++current_value_index;
     }
 
-    result.push_back(static_cast<double>(current_value_index) / sample_size);
+    result.push_back(static_cast<double>(current_value_index) / static_cast<double>(sample_size_));
   }
 
   return result;

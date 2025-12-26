@@ -11,9 +11,9 @@ double LaplaceDistribution::Pdf(double x) const {
 
 double LaplaceDistribution::Cdf(double x) const {
   if (x < mu_)
-    return 0.5 * std::exp((x - mu_) / b_);
+    return kLaplaceDistributionMu * std::exp((x - mu_) / b_);
   else
-    return 1 - 0.5 * std::exp(-(x - mu_) / b_);
+    return kLaplaceDistributionOne - kLaplaceDistributionMu * std::exp(-(x - mu_) / b_);
 }
 
 double LaplaceDistribution::Sample(std::mt19937& rng) const {

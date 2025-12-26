@@ -5,6 +5,8 @@
 
 namespace ptm {
 
+const double kCauchyDistributionX0 = 0.5;
+
 // Распределение Коши (x0, gamma)
 class CauchyDistribution : public Distribution {
 public:

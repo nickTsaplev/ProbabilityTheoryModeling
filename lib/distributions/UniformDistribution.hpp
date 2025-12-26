@@ -7,6 +7,8 @@
 
 namespace ptm {
 
+const double kUniformVarianceConstant = 12.0;
+
 // Равномерное U(a, b)
 class UniformDistribution : public Distribution {
 public:

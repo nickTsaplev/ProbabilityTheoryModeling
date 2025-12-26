@@ -7,6 +7,9 @@
 
 namespace ptm {
 
+  const double kLaplaceDistributionMu = 0.5;
+  const double kLaplaceDistributionOne = 1.0;
+
 // Распределение Лапласа Laplace(mu, b)
 class LaplaceDistribution : public Distribution {
 public:

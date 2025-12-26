@@ -9,7 +9,7 @@ double BernoulliDistribution::Pdf(double x) const {
   if (x != 0 && x != 1)
     return 0;
 
-  return x ? p_ : 1 - p_;
+  return (x == 1.0) ? p_ : 1 - p_;
 }
 
 double BernoulliDistribution::Cdf(double x) const {

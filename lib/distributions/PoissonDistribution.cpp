@@ -12,7 +12,7 @@ double PoissonDistribution::Pdf(double x) const {
   std::uint32_t k = std::lround(x);
   std::uint32_t k_fact = 1;
 
-  for (int i = k; i > 1; --i) {
+  for (uint32_t i = k; i > 1; --i) {
     k_fact *= i;
   }
 

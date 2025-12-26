@@ -2,7 +2,7 @@
 
 namespace ptm {
 
-LawOfLargeNumbersSimulator::LawOfLargeNumbersSimulator(std::shared_ptr<Distribution> dist) : dist_(dist) {
+LawOfLargeNumbersSimulator::LawOfLargeNumbersSimulator(std::shared_ptr<Distribution> dist) : dist_(std::move(dist)) {
 }
 
 LLNPathResult LawOfLargeNumbersSimulator::Simulate(std::mt19937& rng, std::size_t max_n, std::size_t step) const {
@@ -17,7 +17,7 @@ LLNPathResult LawOfLargeNumbersSimulator::Simulate(std::mt19937& rng, std::size_
     if (i % step == 0) {
       LLNPathEntry entry{};
       entry.n = i;
-      entry.sample_mean = sum / i;
+      entry.sample_mean = sum / static_cast<double>(i);
       entry.abs_error = std::abs(entry.sample_mean - dist_->TheoreticalMean());
 
       result.entries.push_back(entry);

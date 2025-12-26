@@ -12,7 +12,7 @@ double CauchyDistribution::Pdf(double x) const {
 }
 
 double CauchyDistribution::Cdf(double x) const {
-  return 0.5 + std::atan((x - x0_) / gamma_) / std::numbers::pi;
+  return kCauchyDistributionX0 + std::atan((x - x0_) / gamma_) / std::numbers::pi;
 }
 
 double CauchyDistribution::Sample(std::mt19937& rng) const {

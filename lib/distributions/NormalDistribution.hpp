@@ -7,6 +7,8 @@
 
 namespace ptm {
 
+const double kNormalDistributionFactor = 0.5;
+
 // Нормальное N(mu, sigma^2)
 class NormalDistribution : public Distribution {
 public:

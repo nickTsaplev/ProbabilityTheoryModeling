@@ -14,7 +14,7 @@ double BinomialDistribution::Pdf(double x) const {
   if (std::round(x) != x || x < 0 || x > n_)
     return 0;
 
-  std::uint32_t k = static_cast<std::uint32_t>(x);
+  auto k = static_cast<std::uint32_t>(x);
 
   if (n_ < moivre_laplace_formula_n_border)
     return BernoulliFormula(k);
@@ -33,7 +33,7 @@ double BinomialDistribution::Cdf(double x) const {
 
   double border = (x - n_ * p_) / std::sqrt(n_ * p_ * (1 - p_));
 
-  return std::erf(border / std::sqrt(2)) / 2;
+  return std::erf(border / std::numbers::sqrt2) / 2;
 }
 
 double BinomialDistribution::Sample(std::mt19937& rng) const {
@@ -68,7 +68,7 @@ double BinomialDistribution::PoissonFormula(std::uint32_t k) const {
   double lambda = n_ * (1 - n_);
   double k_fact = 1;
 
-  for (int i = k; i > 1; --i) {
+  for (uint32_t i = k; i > 1; --i) {
     k_fact *= i;
   }
 
