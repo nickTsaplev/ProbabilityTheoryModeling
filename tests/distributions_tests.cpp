@@ -133,5 +133,3 @@ TEST(DistributionExperimentTest, BinomialEmpiricalMean) {
   EXPECT_NEAR(stats.empirical_mean, dist->TheoreticalMean(), 0.2);
   EXPECT_NEAR(stats.empirical_variance, dist->TheoreticalVariance(), 0.5);
 }
-
-// Add your tests...
