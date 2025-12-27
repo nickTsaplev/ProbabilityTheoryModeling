@@ -165,9 +165,7 @@ TEST(SigmaAlgebraTest, GeneratedSigmaAlgebraWithTwo) {
 
   const auto& events = sigma.GetEvents();
 
-  auto contains = [&events](const Event& e) {
-    return std::ranges::find(events, e) != events.end();
-  };
+  auto contains = [&events](const Event& e) { return std::ranges::find(events, e) != events.end(); };
 
   EXPECT_TRUE(contains(empty));
   EXPECT_TRUE(contains(full));
