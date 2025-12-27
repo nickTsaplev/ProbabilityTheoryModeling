@@ -62,6 +62,24 @@ TEST(SigmaAlgebraTest, EventOperations) {
   EXPECT_FALSE(E3.Contains(c));
 }
 
+TEST(SigmaAlgebraTest, InvalidProbabilityMeasure) {
+  using namespace ptm;
+
+  OutcomeSpace omega;
+  auto w0 = omega.AddOutcome("1");
+  auto w1 = omega.AddOutcome("2");
+
+  ProbabilityMeasure P(omega);
+  P.SetAtomicProbability(w0, 0.6);
+  P.SetAtomicProbability(w1, 0.6);
+
+  EXPECT_FALSE(P.IsValid(1e-9));
+
+  P.SetAtomicProbability(w1, 0.5);
+  P.SetAtomicProbability(w0, 0.5);
+  EXPECT_TRUE(P.IsValid(1e-9));
+}
+
 TEST(SigmaAlgebraTest, BasicSigmaAlgebra) {
   using namespace ptm;
 
@@ -111,6 +129,52 @@ TEST(SigmaAlgebraTest, GeneratedSigmaAlgebra) {
   EXPECT_TRUE(std::ranges::find(events, full) != events.end());
   EXPECT_TRUE(std::ranges::find(events, A) != events.end());
   EXPECT_TRUE(std::ranges::find(events, complement_A) != events.end());
+}
+
+TEST(SigmaAlgebraTest, GeneratedSigmaAlgebraWithTwo) {
+  using namespace ptm;
+
+  OutcomeSpace omega;
+  auto w0 = omega.AddOutcome("1");
+  auto w1 = omega.AddOutcome("2");
+  auto w2 = omega.AddOutcome("3");
+  auto w3 = omega.AddOutcome("4");
+
+  // A = {1,2}, B = {3}
+  std::vector<bool> generatorA(omega.GetSize(), false);
+  generatorA[w0] = true;
+  generatorA[w1] = true;
+  Event A(generatorA);
+
+  std::vector<bool> generatorB(omega.GetSize(), false);
+  generatorB[w2] = true;
+  Event B(generatorB);
+
+  std::vector<Event> generators = {A, B};
+  SigmaAlgebra sigma = SigmaAlgebra::Generate(omega, generators);
+
+  EXPECT_TRUE(sigma.IsSigmaAlgebra());
+  EXPECT_EQ(sigma.GetEvents().size(), 8);
+
+  Event empty = Event::Empty(omega.GetSize());
+  Event full = Event::Full(omega.GetSize());
+  Event A_complement = Event::Complement(A);
+  Event B_complement = Event::Complement(B);
+  Event A_union_B = Event::Unite(A, B);
+  Event A_inter_B = Event::Intersect(A, B);
+
+  const auto& events = sigma.GetEvents();
+
+  auto contains = [&events](const Event& e) { return std::ranges::find(events, e) != events.end(); };
+
+  EXPECT_TRUE(contains(empty));
+  EXPECT_TRUE(contains(full));
+  EXPECT_TRUE(contains(A));
+  EXPECT_TRUE(contains(B));
+  EXPECT_TRUE(contains(A_complement));
+  EXPECT_TRUE(contains(B_complement));
+  EXPECT_TRUE(contains(A_union_B));
+  EXPECT_TRUE(contains(A_inter_B));
 }
 
 // Add your tests...
