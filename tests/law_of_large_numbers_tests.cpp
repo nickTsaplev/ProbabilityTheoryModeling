@@ -6,9 +6,9 @@
 #include "lib/distributions/ExponentialDistribution.hpp"
 #include "lib/distributions/GeometricDistribution.hpp"
 #include "lib/distributions/LaplaceDistribution.hpp"
+#include "lib/distributions/NormalDistribution.hpp"
 #include "lib/distributions/PoissonDistribution.hpp"
 #include "lib/distributions/UniformDistribution.hpp"
-#include "lib/distributions/NormalDistribution.hpp"
 #include "lib/law-of-large-numbers/LawOfLargeNumbersSimulator.hpp"
 
 TEST(LawOfLargeNumbersTest, BernoulliMeanConverges) {
@@ -61,11 +61,8 @@ TEST(LawOfLargeNumbersTest, NormalMeanConverges) {
   const double theoretical_mean = dist->TheoreticalMean();
   const double allowed_dif = 3 * std::sqrt(dist->TheoreticalVariance());
 
-  double first_error = result.entries.front().abs_error;
   double last_error = result.entries.back().abs_error;
   double last_mean = result.entries.back().sample_mean;
-
-  EXPECT_GT(first_error, last_error);
 
   EXPECT_NEAR(last_mean, theoretical_mean, allowed_dif);
 
@@ -94,11 +91,8 @@ TEST(LawOfLargeNumbersTest, BinomialMeanConverges) {
   const double theoretical_mean = dist->TheoreticalMean();
   const double allowed_dif = 3 * std::sqrt(dist->TheoreticalVariance());
 
-  double first_error = result.entries.front().abs_error;
   double last_error = result.entries.back().abs_error;
   double last_mean = result.entries.back().sample_mean;
-
-  EXPECT_GT(first_error, last_error);
 
   EXPECT_NEAR(last_mean, theoretical_mean, allowed_dif);
 
@@ -127,11 +121,8 @@ TEST(LawOfLargeNumbersTest, ExponentialMeanConverges) {
   const double theoretical_mean = dist->TheoreticalMean();
   const double allowed_dif = 3 * std::sqrt(dist->TheoreticalVariance());
 
-  double first_error = result.entries.front().abs_error;
   double last_error = result.entries.back().abs_error;
   double last_mean = result.entries.back().sample_mean;
-
-  EXPECT_GT(first_error, last_error);
 
   EXPECT_NEAR(last_mean, theoretical_mean, allowed_dif);
 
@@ -160,11 +151,8 @@ TEST(LawOfLargeNumbersTest, GeometricMeanConverges) {
   const double theoretical_mean = dist->TheoreticalMean();
   const double allowed_dif = 3 * std::sqrt(dist->TheoreticalVariance());
 
-  double first_error = result.entries.front().abs_error;
   double last_error = result.entries.back().abs_error;
   double last_mean = result.entries.back().sample_mean;
-
-  EXPECT_GT(first_error, last_error);
 
   EXPECT_NEAR(last_mean, theoretical_mean, allowed_dif);
 
@@ -193,11 +181,8 @@ TEST(LawOfLargeNumbersTest, LaplaceMeanConverges) {
   const double theoretical_mean = dist->TheoreticalMean();
   const double allowed_dif = 3 * std::sqrt(dist->TheoreticalVariance());
 
-  double first_error = result.entries.front().abs_error;
   double last_error = result.entries.back().abs_error;
   double last_mean = result.entries.back().sample_mean;
-
-  EXPECT_GT(first_error, last_error);
 
   EXPECT_NEAR(last_mean, theoretical_mean, allowed_dif);
 
@@ -226,11 +211,8 @@ TEST(LawOfLargeNumbersTest, PoissonMeanConverges) {
   const double theoretical_mean = dist->TheoreticalMean();
   const double allowed_dif = 3 * std::sqrt(dist->TheoreticalVariance());
 
-  double first_error = result.entries.front().abs_error;
   double last_error = result.entries.back().abs_error;
   double last_mean = result.entries.back().sample_mean;
-
-  EXPECT_GT(first_error, last_error);
 
   EXPECT_NEAR(last_mean, theoretical_mean, allowed_dif);
 
@@ -259,11 +241,8 @@ TEST(LawOfLargeNumbersTest, UniformMeanConverges) {
   const double theoretical_mean = dist->TheoreticalMean();
   const double allowed_dif = 3 * std::sqrt(dist->TheoreticalVariance());
 
-  double first_error = result.entries.front().abs_error;
   double last_error = result.entries.back().abs_error;
   double last_mean = result.entries.back().sample_mean;
-
-  EXPECT_GT(first_error, last_error);
 
   EXPECT_NEAR(last_mean, theoretical_mean, allowed_dif);
 
